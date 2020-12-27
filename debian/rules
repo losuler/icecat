@@ -1,0 +1,26 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE = 1
+export DH_OPTIONS = -v
+
+export SHELL=/bin/bash
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+FFVERSION = 78.6.0
+
+%:
+	mkdir -p output/build output/icecat-$(FFVERSION)
+	dh $@ --builddirectory=output/build --sourcedirectory=output/icecat-$(FFVERSION)
+
+override_dh_auto_configure:
+	./makeicecat
+	cd output/build && ../icecat-$(FFVERSION)/configure \
+		--prefix=/usr \
+		--includedir=\${prefix}/include \
+		--libdir=\${prefix}/lib/$(DEB_HOST_MULTIARCH) \
+		--with-l10n-base=../icecat-$(FFVERSION)/l10n
+
+override_dh_auto_test:

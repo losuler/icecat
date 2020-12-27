@@ -1,0 +1,54 @@
+From: losuler <losuler@posteo.net>
+Subject: Use offline sources provided
+--- a/makeicecat
++++ b/makeicecat
+@@ -28,6 +28,7 @@
+ FFVERSION=$FFMAJOR.$FFMINOR.$FFSUB
+ ICECATVERSION=$FFVERSION-gnu$GNUVERSION
+ SOURCEDIR=icecat-$FFVERSION
++CLRELEASE=RELEASE_8_0_0
+ 
+ DATA="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/data
+ 
+@@ -40,14 +41,12 @@
+ 
+ rm mozilla-esr${FFMAJOR} $SOURCEDIR -rf
+ 
+-wget -N https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${FFVERSION}esr/source/firefox-${FFVERSION}esr.source.tar.xz
+-wget -N https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${FFVERSION}esr/source/firefox-${FFVERSION}esr.source.tar.xz.asc
+-gpg --recv-keys --keyserver keyserver.ubuntu.com 14F26682D0916CDD81E37B6D61B7B526D98F0353
+-gpg --verify firefox-${FFVERSION}esr.source.tar.xz.asc
+-echo -n 5e69f9bfd1a35decdae8d4b28da8100820e58b429f539fa9884802347631cf53 firefox-${FFVERSION}esr.source.tar.xz |sha256sum -c -
++gpg --import ../extras/KEY
++gpg --verify ../extras/firefox-${FFVERSION}esr.source.tar.xz.asc
++echo -n 5e69f9bfd1a35decdae8d4b28da8100820e58b429f539fa9884802347631cf53 ../extras/firefox-${FFVERSION}esr.source.tar.xz |sha256sum -c -
+ 
+ echo Extracting Firefox tarball
+-tar -xf firefox-${FFVERSION}esr.source.tar.xz
++tar -xf ../extras/firefox-${FFVERSION}esr.source.tar.xz
+ 
+ mv firefox-${FFVERSION} $SOURCEDIR
+ 
+@@ -61,7 +60,8 @@
+     line=$(echo $line |cut -d' ' -f1)
+     #[ $line = "es-ES" ] || continue # To speed up testing
+     [ $line = "en-US" ] && continue
+-    hg clone https://hg.mozilla.org/l10n-central/$line
++    unzip ../../extras/$line-[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9].zip
++    find . -mindepth 1 -name "$line-*" -prune -type d -exec mv {} $line \;
+     mkdir -p $line/browser/chrome/browser/preferences
+     touch $line/browser/chrome/browser/preferences/advanced-scripts.dtd
+     rm -rf $line/.hg*
+@@ -70,10 +70,8 @@
+ 
+ mv l10n $SOURCEDIR
+ 
+-hg clone https://hg.mozilla.org/l10n/compare-locales/
+-cd compare-locales/
+-hg checkout RELEASE_8_0_0
+-cd ..
++unzip ../extras/compare-locales-${CLRELEASE}.zip
++mv compare-locales-${CLRELEASE} compare-locales
+ rm compare-locales/.hg* compare-locales/.git* -rf
+ mv compare-locales $SOURCEDIR/l10n
+ 

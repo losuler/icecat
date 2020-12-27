@@ -1,0 +1,7 @@
+build/extras/*
+build/*.build
+build/*.buildinfo
+build/*.changes
+build/*.deb
+build/*.dsc
+build/*.debian.tar.xz
