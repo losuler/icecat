@@ -58,7 +58,7 @@ build_deb() {
 }
 
 build_source() {
-    build_deb()
+    build_deb
     
     if [[ $(basename "$PWD") != "icecat-${FFVERSION}" ]]; then
         cd icecat-${FFVERSION}
@@ -80,13 +80,13 @@ build_source() {
 #}
 
 if [[ "$1" == "build_deb" ]]; then
-    build_deb()
+    build_deb
 elif [[ "$1" == "build_source" ]]; then
-    build_source()
+    build_source
 elif [[ "$1" == "download" ]]; then
-    download()
+    download
 elif [[ "$1" == "reproduce" ]]; then
-    reproduce()
+    reproduce
 else
     echo "Input required"
 fi
