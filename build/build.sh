@@ -54,6 +54,7 @@ download() {
 
 build_deb() {
     rm *.build *.buildinfo *.changes *.deb *.dsc *.debian.tar.xz || true
+    rm -r icecat-${FFVERSION} || true
     
     tar xf icecat_${FFVERSION}.orig.tar.gz --checkpoint=.1000
     mv gnuzilla-${ICECATCOMMIT} icecat-${FFVERSION}
@@ -64,18 +65,12 @@ build_deb() {
     
     cp -r ../debian icecat-${FFVERSION}
     cd icecat-${FFVERSION}
-    
-    debuild -us -uc
-}
 
-build_source() {
-    build_deb
-    
-    if [[ $(basename "$PWD") != "icecat-${FFVERSION}" ]]; then
-        cd icecat-${FFVERSION}
+    if [[ "$1" == false ]]; then
+        dpkg-source -b .
+    else
+        debuild -us -uc
     fi
-    
-    dpkg-source -b .
 }
 
 #patch() {
@@ -93,7 +88,7 @@ build_source() {
 if [[ "$1" == "build_deb" ]]; then
     build_deb
 elif [[ "$1" == "build_source" ]]; then
-    build_source
+    build_deb(false)
 elif [[ "$1" == "download" ]]; then
     download
 elif [[ "$1" == "reproduce" ]]; then
