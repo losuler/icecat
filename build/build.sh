@@ -8,6 +8,16 @@ ICECATCOMMIT="a43514623e93d4f3fe6d61f5b2f82c5ef29bf518"
 FFVERSION="78.6.0"
 CLVERSION="RELEASE_8_0_0"
 
+usage() {
+    echo "Usage: build.sh COMMAND"
+    echo "Commands:"
+    echo "  download       Downloads and creates the extras archive"
+    echo "  reproduce      Extracts extras archive and verifies files"
+    echo "  build_deb      Builds the .deb package with debuild (for local builds)"
+    echo "  build_source   Builds the source files (for use with external build service)"
+    echo "  patch          Creates patch file in debian/patches directory"
+}
+
 download() {
 	wget "https://git.savannah.gnu.org/cgit/gnuzilla.git/snapshot/gnuzilla-${ICECATCOMMIT}.tar.gz"
 	mv gnuzilla-${ICECATCOMMIT}.tar.gz icecat_${FFVERSION}.orig.tar.gz
@@ -88,5 +98,5 @@ elif [[ "$1" == "download" ]]; then
 elif [[ "$1" == "reproduce" ]]; then
     reproduce
 else
-    echo "Input required"
+    usage
 fi
