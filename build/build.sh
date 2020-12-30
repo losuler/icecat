@@ -29,7 +29,7 @@ download() {
 	wget "https://ftp.mozilla.org/pub/firefox/releases/${FFVERSION}esr/source/firefox-${FFVERSION}esr.source.tar.xz.asc"
 	wget "https://ftp.mozilla.org/pub/firefox/releases/${FFVERSION}esr/KEY"
 
-	tar xf "firefox-${FFVERSION}esr.source.tar.xz"
+	tar xf "firefox-${FFVERSION}esr.source.tar.xz" --checkpoint=.1000
 
 	while read line; do
 		line=$(echo $line | cut -d ' ' -f1)
@@ -55,7 +55,7 @@ download() {
 build_deb() {
     rm *.build *.buildinfo *.changes *.deb *.dsc *.debian.tar.xz || true
     
-    tar xf icecat_${FFVERSION}.orig.tar.gz
+    tar xf icecat_${FFVERSION}.orig.tar.gz --checkpoint=.1000
     mv gnuzilla-${ICECATCOMMIT} icecat-${FFVERSION}
     
     mkdir icecat-${FFVERSION}/extras
