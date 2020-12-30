@@ -62,7 +62,7 @@ build_deb() {
     tar -C icecat-${FFVERSION}/extras --strip-components=1 \
         -xf icecat_${FFVERSION}.orig-extras.tar.xz --checkpoint=.1000
     
-    cp -r debian icecat-${FFVERSION}
+    cp -r ../debian icecat-${FFVERSION}
     cd icecat-${FFVERSION}
     
     debuild -us -uc
