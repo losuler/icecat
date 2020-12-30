@@ -42,7 +42,7 @@ download() {
 	wget --content-disposition "https://hg.mozilla.org/l10n/compare-locales/archive/$CLVERSION.zip"
 
 	cd ..
-	tar caf "icecat_$FFVERSION.orig-extras.tar.xz" extras/*
+	tar caf "icecat_$FFVERSION.orig-extras.tar.xz" --checkpoint=.1000 extras/*
 
 	rm -rf extras
 }
@@ -59,7 +59,8 @@ build_deb() {
     find . -mindepth 1 -name "gnuzilla-*" -prune -type d -exec mv {} icecat-${FFVERSION} \;
     
     mkdir icecat-${FFVERSION}/extras
-    tar -C icecat-${FFVERSION}/extras --strip-components=1 -xf icecat_${FFVERSION}.orig-extras.tar.xz
+    tar -C icecat-${FFVERSION}/extras --strip-components=1 \
+        -xf icecat_${FFVERSION}.orig-extras.tar.xz --checkpoint=.1000
     
     cp -r debian icecat-${FFVERSION}
     cd icecat-${FFVERSION}
