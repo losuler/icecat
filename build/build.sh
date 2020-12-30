@@ -56,7 +56,7 @@ build_deb() {
     rm *.build *.buildinfo *.changes *.deb *.dsc *.debian.tar.xz || true
     
     tar xf icecat_${FFVERSION}.orig.tar.gz
-    find . -mindepth 1 -name "gnuzilla-*" -prune -type d -exec mv {} icecat-${FFVERSION} \;
+    mv gnuzilla-${ICECATCOMMIT} icecat-${FFVERSION}
     
     mkdir icecat-${FFVERSION}/extras
     tar -C icecat-${FFVERSION}/extras --strip-components=1 \
