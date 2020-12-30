@@ -88,7 +88,7 @@ build_deb() {
 if [[ "$1" == "build_deb" ]]; then
     build_deb
 elif [[ "$1" == "build_source" ]]; then
-    build_deb(false)
+    build_deb false
 elif [[ "$1" == "download" ]]; then
     download
 elif [[ "$1" == "reproduce" ]]; then
