@@ -9,7 +9,7 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
-FFVERSION = 78.6.0
+FFVERSION = 78.6.1
 
 %:
 	mkdir -p output/build output/icecat-$(FFVERSION)
