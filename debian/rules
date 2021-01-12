@@ -7,7 +7,7 @@ export SHELL=/bin/bash
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
-export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed -Wl,--reduce-memory-overheads -Wl,--no-keep-memory
 
 FFVERSION = 78.6.1
 
@@ -17,10 +17,19 @@ FFVERSION = 78.6.1
 
 override_dh_auto_configure:
 	./makeicecat
+ifneq (64,$(DEB_BUILD_ARCH_BITS))
 	cd output/build && ../icecat-$(FFVERSION)/configure \
-		--prefix=/usr \
-		--includedir=\${prefix}/include \
-		--libdir=\${prefix}/lib/$(DEB_HOST_MULTIARCH) \
-		--with-l10n-base=../icecat-$(FFVERSION)/l10n
+	--prefix=/usr \
+	--includedir=\${prefix}/include \
+	--libdir=\${prefix}/lib/$(DEB_HOST_MULTIARCH) \
+	--with-l10n-base=../icecat-$(FFVERSION)/l10n \
+	--disable-debug-symbols
+else
+	cd output/build && ../icecat-$(FFVERSION)/configure \
+	--prefix=/usr \
+	--includedir=\${prefix}/include \
+	--libdir=\${prefix}/lib/$(DEB_HOST_MULTIARCH) \
+	--with-l10n-base=../icecat-$(FFVERSION)/l10n
+endif
 
 override_dh_auto_test:
