@@ -1,6 +1,7 @@
 icecat (78.6.1-2) unstable; urgency=medium
 
   * debian/rules: Fix i586 build failures.
+  * debian/rules: Disable verbose flags for builds.
 
  -- user <losuler@posteo.net>  Wed, 13 Jan 2021 20:14:12 +1100
 
