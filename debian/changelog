@@ -1,3 +1,9 @@
+icecat (78.6.1-2) unstable; urgency=medium
+
+  * debian/rules: Fix i586 build failures.
+
+ -- user <losuler@posteo.net>  Wed, 13 Jan 2021 20:14:12 +1100
+
 icecat (78.6.1-1) unstable; urgency=medium
 
   * Update to 78.6.1.
