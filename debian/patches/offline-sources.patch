@@ -1,54 +1,40 @@
 From: losuler <losuler@posteo.net>
 Subject: Use offline sources provided
---- a/makeicecat
-+++ b/makeicecat
-@@ -28,6 +28,7 @@
- FFVERSION=$FFMAJOR.$FFMINOR.$FFSUB
- ICECATVERSION=$FFVERSION-gnu$GNUVERSION
- SOURCEDIR=icecat-$FFVERSION
-+CLRELEASE=RELEASE_8_0_0
+--- a/makeicecat	2021-02-14 12:35:33.678157643 +1100
++++ b/makeicecat	2021-02-14 16:40:58.835837470 +1100
+@@ -119,16 +119,6 @@
+         return 1
+     fi
  
- DATA="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/data
- 
-@@ -40,14 +41,12 @@
- 
- rm mozilla-esr${FFMAJOR} $SOURCEDIR -rf
- 
--wget -N https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${FFVERSION}esr/source/firefox-${FFVERSION}esr.source.tar.xz
--wget -N https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${FFVERSION}esr/source/firefox-${FFVERSION}esr.source.tar.xz.asc
--gpg --recv-keys --keyserver keyserver.ubuntu.com 14F26682D0916CDD81E37B6D61B7B526D98F0353
--gpg --verify firefox-${FFVERSION}esr.source.tar.xz.asc
--echo -n 1aa041db28cd742e93d663a9da8defd33040b38d8b9470350538473251621643 firefox-${FFVERSION}esr.source.tar.xz |sha256sum -c -
-+gpg --import ../extras/KEY
-+gpg --verify ../extras/firefox-${FFVERSION}esr.source.tar.xz.asc
-+echo -n 1aa041db28cd742e93d663a9da8defd33040b38d8b9470350538473251621643 ../extras/firefox-${FFVERSION}esr.source.tar.xz |sha256sum -c -
- 
- echo Extracting Firefox tarball
--tar -xf firefox-${FFVERSION}esr.source.tar.xz
-+tar -xf ../extras/firefox-${FFVERSION}esr.source.tar.xz
- 
- mv firefox-${FFVERSION} $SOURCEDIR
- 
-@@ -61,7 +60,8 @@
-     line=$(echo $line |cut -d' ' -f1)
-     #[ $line = "es-ES" ] || continue # To speed up testing
-     [ $line = "en-US" ] && continue
--    hg clone https://hg.mozilla.org/l10n-central/$line
-+    unzip ../../extras/$line-[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9].zip
-+    find . -mindepth 1 -name "$line-*" -prune -type d -exec mv {} $line \;
-     mkdir -p $line/browser/chrome/browser/preferences
-     touch $line/browser/chrome/browser/preferences/advanced-scripts.dtd
-     rm -rf $line/.hg*
-@@ -70,10 +70,8 @@
- 
- mv l10n $SOURCEDIR
- 
--hg clone https://hg.mozilla.org/l10n/compare-locales/
--cd compare-locales/
--hg checkout RELEASE_8_0_0
--cd ..
-+unzip ../extras/compare-locales-${CLRELEASE}.zip
-+mv compare-locales-${CLRELEASE} compare-locales
- rm compare-locales/.hg* compare-locales/.git* -rf
- mv compare-locales $SOURCEDIR/l10n
- 
+-    # verify that Mercurial is available
+-    if ! which hg &> /dev/null
+-    then
+-        echo -e "\nERROR: This script requires Mercurial:
+- e.g.: 'hg' from the Guix 'mercurial' package
+-       'hg' from the Parabola 'mercurial' package
+-       'hg' from the Trisquel 'mercurial' package"
+-        return 1
+-    fi
+-
+     # verify that Perl 'rename' is available and sufficent
+     local rename_cmds=(
+         # NOTE: order is important -- 'util-linux' provides a binary named 'rename'
+@@ -203,7 +193,7 @@
+ verify_sources()
+ {
+     echo Verifying Firefox tarball
+-    gpg --recv-keys --keyserver keyserver.ubuntu.com ${SOURCEBALL_SIGNINGKEY}
++    gpg --import KEY
+     gpg --verify ${SOURCEBALL}.asc
+     echo -n ${SOURCEBALL_CHECKSUM} ${SOURCEBALL} | sha256sum -c -
+ }
+@@ -230,7 +220,8 @@
+         if [[ -n "${lang}" && "${lang}" != 'en-US' && ! -f ${lang}/${L10N_DTD_FILE} ]]
+         then
+             echo "Cloning '${lang}' language repository"
+-            hg clone ${L10N_URL}/${lang}
++            unzip ../$lang-[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9].zip
++            find . -mindepth 1 -name "$lang-*" -prune -type d -exec mv {} $lang \;
+             mkdir -p ${lang}/${L10N_PREFS_DIR}
+             touch ${lang}/${L10N_DTD_FILE}
+             rm -rf ${lang}/.hg*

@@ -5,6 +5,6 @@ build/*.changes
 build/*.deb
 build/*.dsc
 build/*.debian.tar.xz
-build/*.orig-extras.tar.xz
+build/*.orig-output.tar.xz
 build/*.orig.tar.gz
 build/icecat-*

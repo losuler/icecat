@@ -4,8 +4,8 @@ set -o errexit
 set -o errtrace
 set -o pipefail
 
-ICECATCOMMIT="abfe5eebaca3c2787f1a9505669393674493c177"
-FFVERSION="78.7.0"
+ICECATCOMMIT="bb1c105f4416c2973f394680c2d579918a1da77a"
+FFVERSION="78.7.1"
 
 CLVERSION="RELEASE_8_0_0"
 
@@ -23,8 +23,8 @@ download() {
 	wget "https://git.savannah.gnu.org/cgit/gnuzilla.git/snapshot/gnuzilla-${ICECATCOMMIT}.tar.gz"
 	mv gnuzilla-${ICECATCOMMIT}.tar.gz icecat_${FFVERSION}.orig.tar.gz
 
-	mkdir -p extras
-	cd extras
+	mkdir -p output
+	cd output
 
 	wget "https://ftp.mozilla.org/pub/firefox/releases/${FFVERSION}esr/source/firefox-${FFVERSION}esr.source.tar.xz"
 	wget "https://ftp.mozilla.org/pub/firefox/releases/${FFVERSION}esr/source/firefox-${FFVERSION}esr.source.tar.xz.asc"
@@ -43,9 +43,9 @@ download() {
 	wget --content-disposition "https://hg.mozilla.org/l10n/compare-locales/archive/$CLVERSION.zip"
 
 	cd ..
-	tar caf "icecat_$FFVERSION.orig-extras.tar.xz" --checkpoint=.1000 extras/*
+	tar caf "icecat_$FFVERSION.orig-output.tar.xz" --checkpoint=.1000 output/*
 
-	rm -rf extras
+	rm -rf output
 }
 
 #reproduce() {
@@ -60,9 +60,9 @@ build_deb() {
     tar xf icecat_${FFVERSION}.orig.tar.gz --checkpoint=.1000
     mv gnuzilla-${ICECATCOMMIT} icecat-${FFVERSION}
     
-    mkdir icecat-${FFVERSION}/extras
-    tar -C icecat-${FFVERSION}/extras --strip-components=1 \
-        -xf icecat_${FFVERSION}.orig-extras.tar.xz --checkpoint=.1000
+    mkdir icecat-${FFVERSION}/output
+    tar -C icecat-${FFVERSION}/output --strip-components=1 \
+        -xf icecat_${FFVERSION}.orig-output.tar.xz --checkpoint=.1000
     
     cp -r ../debian icecat-${FFVERSION}
     cd icecat-${FFVERSION}
