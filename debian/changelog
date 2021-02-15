@@ -1,3 +1,12 @@
+icecat (78.7.1-3) unstable; urgency=medium
+
+  * debian/patches/offline-sources.patch: Remove checkout (branch already in
+    additional source archive).
+  * debian/patches/offline-sources.patch: Unpack additional source archive
+    (compare-locales archive).
+
+ -- losuler <losuler@posteo.net>  Mon, 15 Feb 2021 14:52:02 +1100
+
 icecat (78.7.1-2) unstable; urgency=medium
 
   * debian/patches/offline-sources.patch: Remove unneeded build dependency.
