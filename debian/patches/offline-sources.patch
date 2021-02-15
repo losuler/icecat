@@ -1,7 +1,7 @@
 From: losuler <losuler@posteo.net>
 Subject: Use offline sources provided
---- a/makeicecat	2021-02-14 12:35:33.678157643 +1100
-+++ b/makeicecat	2021-02-14 16:40:58.835837470 +1100
+--- a/makeicecat	2021-02-15 12:56:03.091078013 +1100
++++ b/makeicecat	2021-02-15 12:57:32.957602468 +1100
 @@ -119,16 +119,6 @@
          return 1
      fi
@@ -19,7 +19,24 @@ Subject: Use offline sources provided
      # verify that Perl 'rename' is available and sufficent
      local rename_cmds=(
          # NOTE: order is important -- 'util-linux' provides a binary named 'rename'
-@@ -203,7 +193,7 @@
+@@ -154,16 +144,6 @@
+        'prename' from the Trisquel 'rename' package"
+         return 1
+     fi
+-
+-    # verify that Wget is available
+-    if ! which wget &> /dev/null
+-    then
+-        echo -e "\nERROR: This script requires Wget:
+- e.g.: 'wget' from the Guix 'wget' package
+-       'wget' from the Parabola 'wget' package
+-       'wget' from the Trisquel 'wget' package"
+-        return 1
+-    fi
+ }
+ 
+ prepare_env()
+@@ -203,7 +183,7 @@
  verify_sources()
  {
      echo Verifying Firefox tarball
@@ -28,7 +45,7 @@ Subject: Use offline sources provided
      gpg --verify ${SOURCEBALL}.asc
      echo -n ${SOURCEBALL_CHECKSUM} ${SOURCEBALL} | sha256sum -c -
  }
-@@ -230,7 +220,8 @@
+@@ -230,7 +210,8 @@
          if [[ -n "${lang}" && "${lang}" != 'en-US' && ! -f ${lang}/${L10N_DTD_FILE} ]]
          then
              echo "Cloning '${lang}' language repository"

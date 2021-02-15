@@ -1,3 +1,9 @@
+icecat (78.7.1-2) unstable; urgency=medium
+
+  * debian/patches/offline-sources.patch: Remove unneeded build dependency.
+
+ -- losuler <losuler@posteo.net>  Mon, 15 Feb 2021 13:09:31 +1100
+
 icecat (78.7.1-1) unstable; urgency=medium
 
   * Update to 78.7.1.
