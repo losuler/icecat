@@ -1,3 +1,10 @@
+icecat (78.8.0-1) unstable; urgency=medium
+
+  * debian/offline-sources.patch: Move updated patch to correct directory.
+  * Update to 78.8.0.
+
+ -- losuler <losuler@posteo.net>  Wed, 24 Feb 2021 21:36:14 +1100
+
 icecat (78.7.1-3) unstable; urgency=medium
 
   * debian/patches/offline-sources.patch: Remove checkout (branch already in
