@@ -1,7 +1,7 @@
 From: losuler <losuler@posteo.net>
 Subject: Use offline sources provided
 --- a/makeicecat	2021-02-15 12:56:03.091078013 +1100
-+++ b/makeicecat	2021-02-15 12:57:32.957602468 +1100
++++ b/makeicecat	2021-02-15 15:25:26.389348044 +1100
 @@ -119,16 +119,6 @@
          return 1
      fi
@@ -55,3 +55,20 @@ Subject: Use offline sources provided
              mkdir -p ${lang}/${L10N_PREFS_DIR}
              touch ${lang}/${L10N_DTD_FILE}
              rm -rf ${lang}/.hg*
+@@ -239,13 +220,13 @@
+     cd ..
+     cp -a l10n ${SOURCEDIR}/
+
++    unzip compare-locales-${L10N_CMP_REV}.zip
++    mv compare-locales-${L10N_CMP_REV} compare-locales
++
+     if ! [[ -d compare-locales ]]
+     then
+         hg clone ${L10N_CMP_URL}/
+     fi
+-    cd compare-locales/
+-    hg checkout ${L10N_CMP_REV}
+-    cd ..
+     cp -a compare-locales ${SOURCEDIR}/l10n/
+     rm -rf ${SOURCEDIR}/l10n/compare-locales/{.git,.hg}*
+ }
