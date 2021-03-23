@@ -1,3 +1,9 @@
+icecat (78.9.0-1) unstable; urgency=medium
+
+  * Update to 78.9.0
+
+ -- losuler <losuler@posteo.net>  Tue, 23 Mar 2021 23:28:25 +1100
+
 icecat (78.8.0-1) unstable; urgency=medium
 
   * debian/offline-sources.patch: Move updated patch to correct directory.
