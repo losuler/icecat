@@ -20,37 +20,37 @@ usage() {
 }
 
 download() {
-	wget "https://git.savannah.gnu.org/cgit/gnuzilla.git/snapshot/gnuzilla-${ICECATCOMMIT}.tar.gz"
-	mv gnuzilla-${ICECATCOMMIT}.tar.gz icecat_${FFVERSION}.orig.tar.gz
+    wget "https://git.savannah.gnu.org/cgit/gnuzilla.git/snapshot/gnuzilla-${ICECATCOMMIT}.tar.gz"
+    mv gnuzilla-${ICECATCOMMIT}.tar.gz icecat_${FFVERSION}.orig.tar.gz
 
-	mkdir -p output
-	cd output
+    mkdir -p output
+    cd output
 
-	wget "https://ftp.mozilla.org/pub/firefox/releases/${FFVERSION}esr/source/firefox-${FFVERSION}esr.source.tar.xz"
-	wget "https://ftp.mozilla.org/pub/firefox/releases/${FFVERSION}esr/source/firefox-${FFVERSION}esr.source.tar.xz.asc"
-	wget "https://ftp.mozilla.org/pub/firefox/releases/${FFVERSION}esr/KEY"
+    wget "https://ftp.mozilla.org/pub/firefox/releases/${FFVERSION}esr/source/firefox-${FFVERSION}esr.source.tar.xz"
+    wget "https://ftp.mozilla.org/pub/firefox/releases/${FFVERSION}esr/source/firefox-${FFVERSION}esr.source.tar.xz.asc"
+    wget "https://ftp.mozilla.org/pub/firefox/releases/${FFVERSION}esr/KEY"
 
-	tar xf "firefox-${FFVERSION}esr.source.tar.xz" --checkpoint=.1000
+    tar xf "firefox-${FFVERSION}esr.source.tar.xz" --checkpoint=.1000
 
-	while read line; do
-		line=$(echo $line | cut -d ' ' -f1)
-		[ $line = "en-US" ] && continue
-		wget --content-disposition "https://hg.mozilla.org/l10n-central/$line/archive/tip.zip"
-	done < "firefox-$FFVERSION/browser/locales/shipped-locales"
+    while read line; do
+        line=$(echo $line | cut -d ' ' -f1)
+        [ $line = "en-US" ] && continue
+        wget --content-disposition "https://hg.mozilla.org/l10n-central/$line/archive/tip.zip"
+    done < "firefox-$FFVERSION/browser/locales/shipped-locales"
 
-	rm -r firefox-$FFVERSION
+    rm -r firefox-$FFVERSION
 
-	wget --content-disposition "https://hg.mozilla.org/l10n/compare-locales/archive/$CLVERSION.zip"
+    wget --content-disposition "https://hg.mozilla.org/l10n/compare-locales/archive/$CLVERSION.zip"
 
-	cd ..
-	tar caf "icecat_$FFVERSION.orig-output.tar.xz" --checkpoint=.1000 output/*
+    cd ..
+    tar caf "icecat_$FFVERSION.orig-output.tar.xz" --checkpoint=.1000 output/*
 
-	rm -rf output
+    rm -rf output
 }
 
 #reproduce() {
-	# find extras/ -mindepth 1 -name "*.zip" -exec echo {} \;
-	# TODO: Use filenames to redownload archives to verify.
+    # find extras/ -mindepth 1 -name "*.zip" -exec echo {} \;
+    # TODO: Use filenames to redownload archives to verify.
 #}
 
 build_deb() {
@@ -76,14 +76,14 @@ build_deb() {
 
 #patch() {
     # TODO: Complete this function
-	# See https://www.debian.org/doc/manuals/maint-guide/modify.en.html
-	# alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
-	# complete -F _quilt_completion -o filenames dquilt
-	# dquilt new test-patch.patch
-	# dquilt add makeicecat
+    # See https://www.debian.org/doc/manuals/maint-guide/modify.en.html
+    # alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
+    # complete -F _quilt_completion -o filenames dquilt
+    # dquilt new test-patch.patch
+    # dquilt add makeicecat
     # patch -p1 < ../debian/patches/offline-sources.patch
-	# dquilt refresh
-	# dquilt header -e
+    # dquilt refresh
+    # dquilt header -e
 #}
 
 if [[ "$1" == "build_deb" ]]; then
