@@ -1,1 +1,2 @@
 debian/icecat.desktop /usr/share/applications
+debian/icecat/usr/lib/icecat/browser/chrome /usr/share/icecat/browser

@@ -23,15 +23,11 @@ override_dh_auto_configure:
 ifneq (64,$(DEB_BUILD_ARCH_BITS))
 	cd output/build && ../icecat-$(FFVERSION)/configure \
 	--prefix=/usr \
-	--includedir=\${prefix}/include \
-	--libdir=\${prefix}/lib/$(DEB_HOST_MULTIARCH) \
 	--with-l10n-base=../icecat-$(FFVERSION)/l10n \
 	--disable-debug-symbols
 else
 	cd output/build && ../icecat-$(FFVERSION)/configure \
 	--prefix=/usr \
-	--includedir=\${prefix}/include \
-	--libdir=\${prefix}/lib/$(DEB_HOST_MULTIARCH) \
 	--with-l10n-base=../icecat-$(FFVERSION)/l10n
 endif
 
