@@ -1,0 +1,15 @@
+From: losuler <losuler@posteo.net>
+Subject: Fix build directories
+--- a/data/buildscripts/mozconfig-common	2021-07-19 04:09:30.552370922 +1000
++++ b/data/buildscripts/mozconfig-common	2021-07-19 04:11:33.059625780 +1000
+@@ -1,4 +1,3 @@
+-ac_add_options --with-l10n-base=$PWD/l10n
+ ac_add_options --enable-official-branding
+ ac_add_options --with-distribution-id=org.gnu
+ mk_add_options MOZ_MAKE_FLAGS=-j7
+--- a/data/buildscripts/mozconfig-gnulinux	2021-07-19 04:09:30.552370922 +1000
++++ b/data/buildscripts/mozconfig-gnulinux	2021-07-19 04:21:04.151479381 +1000
+@@ -1,2 +1,2 @@
+ ac_add_options --enable-application=browser
+-mk_add_options MOZ_OBJDIR=./obj-gnulinux
++mk_add_options MOZ_OBJDIR=../build

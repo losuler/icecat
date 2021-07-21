@@ -31,4 +31,17 @@ else
 	--with-l10n-base=../icecat-$(FFVERSION)/l10n
 endif
 
+override_dh_auto_build:
+	dh_auto_build
+	cd output/build/browser/locales && \
+	for locale in $$(ls ../../../l10n/ -1); do \
+		make merge-$$locale LOCALE_MERGEDIR=. ; \
+		make langpack-$$locale LOCALE_MERGEDIR=. ; \
+	done
+	cd output/build/dist/linux-*/xpi && \
+	for langpack in $$(ls *.xpi); do \
+		language=$$(echo $$langpack | awk -F '.' '{print $$(NF-2)}') ; \
+		mv $$langpack langpack-$$language@icecat.mozilla.org.xpi ; \
+	done
+
 override_dh_auto_test:
