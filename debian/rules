@@ -18,6 +18,8 @@ FFVERSION = 78.11.0
 
 override_dh_auto_configure:
 	./makeicecat
+	cp data/buildscripts/mozconfig-common output/icecat-$(FFVERSION)/.mozconfig
+	cat data/buildscripts/mozconfig-gnulinux >> output/icecat-$(FFVERSION)/.mozconfig
 ifneq (64,$(DEB_BUILD_ARCH_BITS))
 	cd output/build && ../icecat-$(FFVERSION)/configure \
 	--prefix=/usr \
