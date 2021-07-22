@@ -1,5 +1,8 @@
 <div align="center">
 <p align="center">
+  <a href="https://github.com/losuler/icecat">
+    <img src="img/icecat.png" alt="logo" width="150" height="150">
+  </a>
   <p align="center">
     <h3 align="center">GNU IceCat Deb</h3>
     <p align="center">
