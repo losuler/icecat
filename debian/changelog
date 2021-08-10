@@ -1,3 +1,9 @@
+icecat (78.13.0-1) unstable; urgency=medium
+
+  * Update to 78.13.0.
+
+ -- losuler <losuler@posteo.net>  Tue, 10 Aug 2021 18:38:45 +1000
+
 icecat (78.12.0-1) unstable; urgency=medium
 
   * debian/icecat.desktop: Add localization.

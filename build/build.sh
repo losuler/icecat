@@ -4,8 +4,8 @@ set -o errexit
 set -o errtrace
 set -o pipefail
 
-ICECATCOMMIT="b1cddc13149014362a984902cc0cbe4fba28cf05"
-FFVERSION="78.12.0"
+ICECATCOMMIT="3e403f023e19f70e3a2dbeed1be02050ea766ffb"
+FFVERSION="78.13.0"
 
 CLVERSION="RELEASE_8_0_0"
 
