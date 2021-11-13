@@ -4,10 +4,9 @@ set -o errexit
 set -o errtrace
 set -o pipefail
 
-ICECATCOMMIT="857afe0e546d0fb9bca6e2d2f79f0cbd44e6a5a3"
-FFVERSION="78.15.0"
-
-CLVERSION="RELEASE_8_0_0"
+ICECATCOMMIT="32631cac00953abbac61dc7ab1a0eafbdd59b53a"
+FFVERSION="91.3.0"
+CLVERSION="RELEASE_8_1_0"
 
 usage() {
     echo "Usage: build.sh COMMAND"
