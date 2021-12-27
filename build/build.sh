@@ -4,8 +4,8 @@ set -o errexit
 set -o errtrace
 set -o pipefail
 
-ICECATCOMMIT="32631cac00953abbac61dc7ab1a0eafbdd59b53a"
-FFVERSION="91.3.0"
+ICECATCOMMIT="dd79d69e5dc6e6e751195001f322b30746be6903"
+FFVERSION="91.4.0"
 CLVERSION="RELEASE_8_1_0"
 
 MOZ_FTP="ftp.mozilla.org/pub/firefox/releases"
@@ -84,7 +84,7 @@ create_service() {
 }
 
 create_includes() {
-    PATH="output/icecat-91.3.0"
+    PATH="output/icecat-${FFVERSION}"
     echo "${PATH}/firefox-${FFVERSION}esr.source.tar.xz" > ../debian/source/include-binaries
     echo "${PATH}/firefox-${FFVERSION}esr.source.tar.xz.asc" >> ../debian/source/include-binaries
     echo "${PATH}/KEY" >> ../debian/source/include-binaries

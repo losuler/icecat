@@ -1,6 +1,18 @@
-icecat (91.3.0-1) unstable; urgency=medium
+icecat (91.4.0-1) unstable; urgency=medium
+
+  * debian/rules: Update to 91.4.0.
+
+ -- losuler <losuler@posteo.net>  Tue, 28 Dec 2021 07:02:21 +1100
+
+icecat (91.3.0-1) UNRELEASED; urgency=medium
 
   * debian/rules: Update to 91.3.0.
+  * debian/patches/build-directories.patch,
+  debian/patches/offline-sources.patch: Update patches for 91.3.0.
+  * debian/rules, debian/source/include-binaries: Add OBS service
+  to pull Firefox sources.
+  * debian/rules: Add build steps using mach instead of make.
+  * debian/control: Fix version of rustc being too old.
 
  -- losuler <losuler@posteo.net>  Sat, 13 Nov 2021 09:56:39 +1100
 
