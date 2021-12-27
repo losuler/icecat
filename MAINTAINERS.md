@@ -30,7 +30,8 @@ cd build
 
 ```bash
 cd build
-./build.sh download
+./build.sh create_includes
+./build.sh create_service
 ./build.sh build_source
 ```
 

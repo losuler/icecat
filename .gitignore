@@ -8,3 +8,4 @@ build/*.debian.tar.xz
 build/*.orig-output.tar.xz
 build/*.orig.tar.gz
 build/icecat-*
+build/_service

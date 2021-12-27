@@ -11,12 +11,18 @@ export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed -Wl,--reduce-memory-overheads -Wl,--no-keep-memory
 
 FFVERSION = 91.3.0
+CLVERSION = RELEASE_8_1_0
 
 %:
 	mkdir -p output/build output/icecat-$(FFVERSION)
 	dh $@ --builddirectory=output/build --sourcedirectory=output/icecat-$(FFVERSION)
 
 override_dh_auto_configure:
+	cp ../SOURCES/firefox-$(FFVERSION)esr.source.tar.xz output/
+	cp ../SOURCES/firefox-$(FFVERSION)esr.source.tar.xz.asc output/
+	cp ../SOURCES/KEY output/
+	cp ../SOURCES/*.zip output/
+	cp ../SOURCES/$(CLVERSION).zip output/compare-locales-$(CLVERSION).zip
 	./makeicecat
 	cp data/buildscripts/mozconfig-common output/icecat-$(FFVERSION)/.mozconfig
 	cat data/buildscripts/mozconfig-gnulinux >> output/icecat-$(FFVERSION)/.mozconfig
