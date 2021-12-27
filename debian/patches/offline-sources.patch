@@ -1,7 +1,7 @@
 From: losuler <losuler@posteo.net>
-Subject: Use offline sources provided
---- a/makeicecat	2021-02-15 12:56:03.091078013 +1100
-+++ b/makeicecat	2021-02-15 15:25:26.389348044 +1100
+Subject: Use offline sources from OBS
+--- a/makeicecat	2021-11-13 12:41:55.346614456 +1100
++++ b/makeicecat	2021-11-13 12:44:27.631453583 +1100
 @@ -119,16 +119,6 @@
          return 1
      fi
@@ -19,11 +19,10 @@ Subject: Use offline sources provided
      # verify that Perl 'rename' is available and sufficent
      local rename_cmds=(
          # NOTE: order is important -- 'util-linux' provides a binary named 'rename'
-@@ -154,16 +144,6 @@
-        'prename' from the Trisquel 'rename' package"
+@@ -155,16 +145,6 @@
          return 1
      fi
--
+
 -    # verify that Wget is available
 -    if ! which wget &> /dev/null
 -    then
@@ -33,10 +32,11 @@ Subject: Use offline sources provided
 -       'wget' from the Trisquel 'wget' package"
 -        return 1
 -    fi
- }
- 
- prepare_env()
-@@ -203,7 +183,7 @@
+-
+     # verify that Python 3 is available
+     if ! which python3 &> /dev/null
+     then
+@@ -223,7 +203,7 @@
  verify_sources()
  {
      echo Verifying Firefox tarball
@@ -45,17 +45,17 @@ Subject: Use offline sources provided
      gpg --verify ${SOURCEBALL}.asc
      echo -n ${SOURCEBALL_CHECKSUM} ${SOURCEBALL} | sha256sum -c -
  }
-@@ -230,7 +210,8 @@
+@@ -250,7 +230,8 @@
          if [[ -n "${lang}" && "${lang}" != 'en-US' && ! -f ${lang}/${L10N_DTD_FILE} ]]
          then
              echo "Cloning '${lang}' language repository"
 -            hg clone ${L10N_URL}/${lang}
-+            unzip ../$lang-[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9].zip
++            unzip ../$lang.zip
 +            find . -mindepth 1 -name "$lang-*" -prune -type d -exec mv {} $lang \;
              mkdir -p ${lang}/${L10N_PREFS_DIR}
              touch ${lang}/${L10N_DTD_FILE}
              rm -rf ${lang}/.hg*
-@@ -239,13 +220,13 @@
+@@ -259,13 +240,13 @@
      cd ..
      cp -a l10n ${SOURCEDIR}/
 
