@@ -26,19 +26,12 @@ override_dh_auto_configure:
 	./makeicecat
 	cp data/buildscripts/mozconfig-common output/icecat-$(FFVERSION)/.mozconfig
 	cat data/buildscripts/mozconfig-gnulinux >> output/icecat-$(FFVERSION)/.mozconfig
-ifneq (64,$(DEB_BUILD_ARCH_BITS))
-	cd output/build && ../icecat-$(FFVERSION)/configure \
-	--prefix=/usr \
-	--with-l10n-base=../icecat-$(FFVERSION)/l10n \
-	--disable-debug-symbols
-else
-	cd output/build && ../icecat-$(FFVERSION)/configure \
-	--prefix=/usr \
-	--with-l10n-base=../icecat-$(FFVERSION)/l10n
-endif
+	echo "ac_add_options --prefix=/usr" >> output/icecat-$(FFVERSION)/.mozconfig
+	sed -i 's/cargo_min_version = rustc_min_version/cargo_min_version = Version("1.46.0")/' \
+		output/icecat-$(FFVERSION)/build/moz.configure/rust.configure
 
 override_dh_auto_build:
-	dh_auto_build
+	cd output/icecat-$(FFVERSION) && MACH_USE_SYSTEM_PYTHON=1 ./mach build
 	cd output/build/browser/locales && \
 	for locale in $$(ls ../../../l10n/ -1); do \
 		make merge-$$locale LOCALE_MERGEDIR=. ; \
