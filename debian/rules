@@ -10,7 +10,7 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed -Wl,--reduce-memory-overheads -Wl,--no-keep-memory
 
-FFVERSION = 91.7.0
+FFVERSION = 91.8.0
 CLVERSION = RELEASE_8_1_0
 
 %:

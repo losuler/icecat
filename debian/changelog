@@ -1,3 +1,9 @@
+icecat (91.8.0-1) unstable; urgency=medium
+
+  * debian/rules: Update to 91.8.0.
+
+ -- losuler <losuler@posteo.net>  Wed, 06 Apr 2022 17:08:40 +1000
+
 icecat (91.7.0-1) unstable; urgency=medium
 
   * debian/rules: Update to 91.7.0.
