@@ -1,0 +1,34 @@
+- name: Setup build environment
+  hosts: all
+  remote_user: fedora
+  tasks:
+    - name: Upgrade all packages
+      become: yes
+      dnf:
+        name: "*"
+        state: latest
+    - name: Add repository for obs/osc (currently broken in Fedora)
+      become: yes
+      ansible.builtin.command:
+        cmd: dnf config-manager --add-repo "https://download.opensuse.org/repositories/openSUSE:Tools/Fedora_{{ ansible_distribution_version }}/openSUSE:Tools.repo"
+        warn: false
+      args:
+        creates: /etc/yum.repos.d/openSUSE:Tools.repo
+    - name: Install build dependencies
+      become: yes
+      dnf:
+        name:
+          - git
+          - devscripts
+          # Remove when automated
+          - neovim
+          - wget
+          - osc
+          - obs-build
+          - obs-service-download_url
+          - obs-service-verify_file
+        state: present
+    - name: Clone IceCat build repository
+      ansible.builtin.git:
+        repo: https://github.com/losuler/icecat
+        dest: /home/fedora/icecat

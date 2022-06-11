@@ -9,3 +9,8 @@ build/*.orig-output.tar.xz
 build/*.orig.tar.gz
 build/icecat-*
 build/_service
+
+*.tfstate
+*.tfstate.*
+**/.terraform/*
+.terraform.lock.hcl
