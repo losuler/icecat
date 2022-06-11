@@ -38,7 +38,7 @@ cd build
 2. Test build for OBS locally. `x86_64` may be replaced with other arches such as `i586`. This depends on what arches are available on OBS.
 
 ```bash
-osc build x86_64 --local-package --clean
+osc build x86_64 Debian_11 --local-package --clean
 ```
 
 3. Deploy to OBS (where it will be built).
