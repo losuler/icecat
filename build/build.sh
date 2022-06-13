@@ -42,7 +42,7 @@ download() {
     while read line; do
         line=$(echo $line | cut -d ' ' -f1)
         [ $line = "en-US" ] && continue
-        wget --content-disposition "https://${MOZ_HG}/l10n-central/$line/archive/tip.zip"
+        wget --output-document $line.zip "https://${MOZ_HG}/l10n-central/$line/archive/tip.zip"
     done < "firefox-$FFVERSION/browser/locales/shipped-locales"
 
     rm -r firefox-$FFVERSION
