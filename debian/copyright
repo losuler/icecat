@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: icecat
-Source: <url://example.com>
+Source: https://github.com/losuler/icecat
 
 Files: *
 Copyright: 2020 losuler <losuler@losuler@posteo.net>
