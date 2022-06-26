@@ -26,6 +26,14 @@ usage() {
     echo "  patch           Creates patch file in debian/patches directory"
 }
 
+check_depends() {
+    if ! command -v "$1" &> /dev/null
+    then
+        echo "<the_command> could not be found"
+        exit
+    fi
+}
+
 download() {
     wget "https://${GNU_GIT}/gnuzilla-${ICECATCOMMIT}.tar.gz"
     mv gnuzilla-${ICECATCOMMIT}.tar.gz icecat_${FFVERSION}.orig.tar.gz
@@ -141,12 +149,25 @@ build_deb() {
 #}
 
 if [[ "$1" == "build_deb" ]]; then
+    check_depends dpkg-source
+    check_depends debuild
+    check_depends tar
+    check_depends wget
     build_deb
 elif [[ "$1" == "build_source" ]]; then
+    check_depends dpkg-source
+    check_depends debuild
+    check_depends tar
+    check_depends wget
     build_deb false
 elif [[ "$1" == "download" ]]; then
+    check_depends tar
+    check_depends wget
     download
 elif [[ "$1" == "create_service" ]]; then
+    check_depends tar
+    check_depends wget
+    check_depends osc
     create_service
 elif [[ "$1" == "create_includes" ]]; then
     create_includes

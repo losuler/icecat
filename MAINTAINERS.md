@@ -1,3 +1,17 @@
+## Dependencies
+
+These are a list of dependencies for the process as a packager (i.e. running all the commands below), not for the build system (e.g. see the "Build package locally" section below).
+
+```bash
+tar
+wget
+dpkg-source
+# Only needed if you're building locally.
+debuild
+# Only needed if you're using OBS.
+osc
+```
+
 ## Update package
 
 1. Update `ICECATCOMMIT` from https://git.savannah.gnu.org/cgit/gnuzilla.git and `FFVERSION` which refers to the Firefox ESR release version number.
@@ -15,6 +29,12 @@ dch -i
 ```
 
 ## Build package locally
+
+When building locally on Debian, you'll need to manually install the build dependencies (OBS handles this for you).
+
+```bash
+mk-build-deps --install debian/control
+```
 
 1. Download and build package.
 
