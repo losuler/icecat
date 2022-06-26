@@ -92,10 +92,10 @@ create_service() {
 }
 
 create_includes() {
-    INCLUDES_PATH="output/icecat-${FFVERSION}"
-    echo "${PATH}/firefox-${FFVERSION}esr.source.tar.xz" > ../debian/source/include-binaries
-    echo "${PATH}/firefox-${FFVERSION}esr.source.tar.xz.asc" >> ../debian/source/include-binaries
-    echo "${PATH}/KEY" >> ../debian/source/include-binaries
+    SRC_PATH="output/icecat-${FFVERSION}"
+    echo "${SRC_PATH}/firefox-${FFVERSION}esr.source.tar.xz" > ../debian/source/include-binaries
+    echo "${SRC_PATH}/firefox-${FFVERSION}esr.source.tar.xz.asc" >> ../debian/source/include-binaries
+    echo "${SRC_PATH}/KEY" >> ../debian/source/include-binaries
 }
 
 #reproduce() {
