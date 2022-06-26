@@ -48,9 +48,9 @@ download() {
     tar xf "firefox-${FFVERSION}esr.source.tar.xz" --checkpoint=.1000
 
     while read -r line; do
-        line=$(echo $line | cut -d ' ' -f1)
-        [ $line = "en-US" ] && continue
-        wget --output-document $line.zip "https://${MOZ_HG}/l10n-central/$line/archive/tip.zip"
+        line=$(echo "$line" | cut -d ' ' -f1)
+        [ "$line" = "en-US" ] && continue
+        wget --output-document "$line".zip "https://${MOZ_HG}/l10n-central/$line/archive/tip.zip"
     done < "firefox-$FFVERSION/browser/locales/shipped-locales"
 
     rm -r firefox-$FFVERSION
@@ -76,14 +76,14 @@ create_service() {
     tar xf "firefox-${FFVERSION}esr.source.tar.xz" --checkpoint=.1000
 
     while read -r line; do
-        line=$(echo $line | cut -d ' ' -f1)
-        [ $line = "en-US" ] && continue
+        line=$(echo "$line" | cut -d ' ' -f1)
+        [ "$line" = "en-US" ] && continue
         osc add "https://${MOZ_HG}/l10n-central/$line/archive/tip.zip" || true
     done < "firefox-$FFVERSION/browser/locales/shipped-locales"
 
     while read -r line; do
-        if [[ $line == $(echo $line | grep l10n-central) ]]; then
-            lang=$(echo $line | awk -F '/' '{print $3}')
+        if [[ "$line" == $(echo "$line" | grep l10n-central) ]]; then
+            lang=$(echo "$line" | awk -F '/' '{print $3}')
             sed -i -e "s|$line|$line\n    <param name=\"filename\">$lang.zip</param>|" _service
         fi
     done < "_service"
