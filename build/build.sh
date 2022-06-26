@@ -104,7 +104,7 @@ create_includes() {
 #}
 
 build_deb() {
-    rm *.build *.buildinfo *.changes *.deb *.dsc *.debian.tar.xz || true
+    rm ./*.build ./*.buildinfo ./*.changes ./*.deb ./*.dsc ./*.debian.tar.xz || true
     rm -r icecat-${FFVERSION} || true
 
     if [ ! -e "icecat_${FFVERSION}.orig.tar.gz" ]; then
