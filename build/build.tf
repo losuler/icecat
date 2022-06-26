@@ -26,3 +26,7 @@ resource "aws_instance" "icecat_build" {
     Name = "icecat-build"
   }
 }
+
+output "instance_ip" {
+  value = aws_instance.icecat_build.public_ip
+}
