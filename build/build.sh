@@ -92,7 +92,7 @@ create_service() {
 }
 
 create_includes() {
-    PATH="output/icecat-${FFVERSION}"
+    INCLUDES_PATH="output/icecat-${FFVERSION}"
     echo "${PATH}/firefox-${FFVERSION}esr.source.tar.xz" > ../debian/source/include-binaries
     echo "${PATH}/firefox-${FFVERSION}esr.source.tar.xz.asc" >> ../debian/source/include-binaries
     echo "${PATH}/KEY" >> ../debian/source/include-binaries
