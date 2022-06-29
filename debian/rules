@@ -19,19 +19,19 @@ CLVERSION = RELEASE_8_1_0
 
 override_dh_auto_configure:
 	# Accomodate for building outside of OBS.
-ifeq ( $(shell [ -f ../SOURCES/firefox-$(FFVERSION)esr.source.tar.xz ]), 0)
+ifeq ("$(wildcard $(../SOURCES/firefox-$(FFVERSION)esr.source.tar.xz))","")
 	cp ../SOURCES/firefox-$(FFVERSION)esr.source.tar.xz output/
 endif
-ifeq ( $(shell [ -f ../SOURCES/firefox-$(FFVERSION)esr.source.tar.xz.asc ]), 0)
+ifeq ("$(wildcard $(../SOURCES/firefox-$(FFVERSION)esr.source.tar.xz.asc))","")
 	cp ../SOURCES/firefox-$(FFVERSION)esr.source.tar.xz.asc output/
 endif
-ifeq ( $(shell [ -f ../SOURCES/KEY ]), 0)
+ifeq ("$(wildcard $(../SOURCES/KEY))","")
 	cp ../SOURCES/KEY output/
 endif
-ifeq ( $(shell [ -f ../SOURCES/*.zip ]), 0)
+ifeq ("$(wildcard $(../SOURCES/*.zip))","")
 	cp ../SOURCES/*.zip output/
 endif
-ifeq ( $(shell [ -f ../SOURCES/$(CLVERSION).zip ]), 0)
+ifeq ("$(wildcard $(../SOURCES/$(CLVERSION).zip))","")
 	cp ../SOURCES/$(CLVERSION).zip output/compare-locales-$(CLVERSION).zip
 endif
 	./makeicecat
