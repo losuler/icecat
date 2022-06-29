@@ -55,13 +55,21 @@ cd build
 ./build.sh build_source
 ```
 
-2. Test build for OBS locally. `x86_64` may be replaced with other arches such as `i586`. This depends on what arches are available on OBS.
+2. Checkout OBS repository and then copy new and delete old source files.
+
+```bash
+osc co home:losuler:icecat
+cp _service *.debian.tar.xz *.dsc *.orig.tar.gz home:losuler:icecat/icecat/
+rm icecat_$OLD_VERSION.debian.tar.xz icecat_$OLD_VERSION.dsc icecat_$OLD_VERSION.orig.tar.gz
+```
+
+3. Test build for OBS locally. `x86_64` may be replaced with other arches such as `i586`. This depends on what arches are available on OBS.
 
 ```bash
 osc build x86_64 Debian_11 --local-package --clean
 ```
 
-3. Deploy to OBS (where it will be built).
+4. Deploy to OBS (where it will be built).
 
 ```bash
 osc ar
