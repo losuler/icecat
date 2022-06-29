@@ -29,7 +29,7 @@ usage() {
 check_depends() {
     if ! command -v "$1" &> /dev/null
     then
-        echo "<the_command> could not be found"
+        echo "The command \"$1\" could not be found."
         exit
     fi
 }
