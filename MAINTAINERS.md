@@ -48,6 +48,8 @@ cd build
 
 1. Download and build source package.
 
+If you have the `obs-service-download_url` package installed, you will need to remove it to create the `_service` file.
+
 ```bash
 cd build
 ./build.sh create_includes
@@ -64,6 +66,8 @@ rm icecat_$OLD_VERSION.debian.tar.xz icecat_$OLD_VERSION.dsc icecat_$OLD_VERSION
 ```
 
 3. Test build for OBS locally. `x86_64` may be replaced with other arches such as `i586`. This depends on what arches are available on OBS.
+
+If you removed the `obs-service-download_url` package earlier, you'll need to re-install it again in order to run the build.
 
 ```bash
 osc build x86_64 Debian_11 --local-package --clean
