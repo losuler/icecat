@@ -1,6 +1,6 @@
 ## Dependencies
 
-These are a list of dependencies for the process as a packager (i.e. running all the commands below), not for the build system (e.g. see the "Build package locally" section below).
+These are a list of dependencies for the process as a packager (i.e. running all the commands below), not for the build system (e.g. see the [Build package locally](#build-package-locally) section below).
 
 ```bash
 tar
