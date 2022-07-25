@@ -177,3 +177,9 @@ icecat (78.6.0-1) unstable; urgency=medium
   * Initial release.
 
  -- losuler <losuler@posteo.net>  Sat, 19 Dec 2020 18:06:59 +1100
+icecat (91.12.0-1) unstable; urgency=medium
+
+  * debian/rules: Update to 91.12.0.
+
+ -- losuler <losuler@posteo.net>  Mon, 25 Jul 2022 21:13:07 +0000
+
