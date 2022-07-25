@@ -24,6 +24,7 @@ usage() {
     echo "  build_deb       Builds the .deb package with debuild (for local builds)"
     echo "  build_source    Builds the source files (for use with external build service)"
     echo "  patch           Creates patch file in debian/patches directory"
+    echo "  update_package  Updates version strings and add changelog entry."
 }
 
 check_depends() {
@@ -131,6 +132,62 @@ build_deb() {
     fi
 }
 
+update_package() {
+    git clone https://git.savannah.gnu.org/git/gnuzilla.git
+    cd gnuzilla
+
+    LATEST_ICECATCOMMIT=$(git log -n 1 --pretty=format:"%H")
+
+    if [[ "$LATEST_ICECATCOMMIT" != "$ICECATCOMMIT" ]]; then
+        sed -i "0,/ICECATCOMMIT=.*/{s/ICECATCOMMIT=.*/ICECATCOMMIT=\"$LATEST_ICECATCOMMIT\"/}" ../build.sh
+        echo "Updated ICECATCOMMIT in build.sh"
+    else
+        echo "No new commits."
+        exit 1
+    fi
+
+    FFMAJOR=$(grep -oP "FFMAJOR=\K\w+" makeicecat)
+    FFMINOR=$(grep -oP "FFMINOR=\K\w+" makeicecat)
+    FFSUB=$(grep -oP "FFSUB=\K\w+" makeicecat)
+
+    LATEST_FFVERSION="$FFMAJOR.$FFMINOR.$FFSUB"
+
+    if [[ "$LATEST_FFVERSION" != "$FFVERSION" ]]; then
+        sed -i "0,/FFVERSION=.*/{s/FFVERSION=.*/FFVERSION=\"$LATEST_FFVERSION\"/}" ../build.sh
+        echo "Updated FFVERSION in build.sh"
+        sed -i "0,/FFVERSION = .*/{s/FFVERSION = .* /FFVERSION = $LATEST_FFVERSION/}" ../../debian/rules
+        echo "Updated FFVERSION in ../debian/rules"
+    else
+        echo "Did not update FFVERSION."
+    fi
+
+    LATEST_CLVERSION=$(grep -oP "L10N_CMP_REV=\K\w+" makeicecat)
+
+    cd ..
+    rm -rf gnuzilla
+
+    if [[ "$LATEST_CLVERSION" != "$CLVERSION" ]]; then
+        sed -i "0,/CLVERSION=.*/{s/CLVERSION=.*/CLVERSION=\"$LATEST_CLVERSION\"/}" build.sh
+        echo "Updated CLVERSION aka L10N_CMP_REV in build.sh"
+        sed -i "0,/CLVERSION = .*/{s/CLVERSION = .*/CLVERSION = $LATEST_CLVERSION/}" ../debian/rules
+        echo "Updated CLVERSION aka L10N_CMP_REV in ../debian/rules"
+    else
+        echo "Did not update CLVERSION."
+    fi
+
+    CHANGELOG_DATE=$(date -u +"%a, %d %b %Y %H:%M:%S %z")
+
+    cat >> ../debian/changelog<< EOF
+icecat ($LATEST_FFVERSION-1) unstable; urgency=medium
+
+  * debian/rules: Update to $LATEST_FFVERSION.
+
+ -- losuler <losuler@posteo.net>  $CHANGELOG_DATE
+
+EOF
+    echo "Added changelog entry to ../debian/changelog"
+}
+
 if [[ "$1" == "build_deb" ]]; then
     check_depends dpkg-source
     check_depends debuild
@@ -154,6 +211,8 @@ elif [[ "$1" == "create_service" ]]; then
     create_service
 elif [[ "$1" == "create_includes" ]]; then
     create_includes
+elif [[ "$1" == "update_package" ]]; then
+    update_package
 else
     usage
 fi
