@@ -155,7 +155,7 @@ update_package() {
     if [[ "$LATEST_FFVERSION" != "$FFVERSION" ]]; then
         sed -i "0,/FFVERSION=.*/{s/FFVERSION=.*/FFVERSION=\"$LATEST_FFVERSION\"/}" ../build.sh
         echo "Updated FFVERSION in build.sh"
-        sed -i "0,/FFVERSION = .*/{s/FFVERSION = .* /FFVERSION = $LATEST_FFVERSION/}" ../../debian/rules
+        sed -i "0,/FFVERSION = .*/{s/FFVERSION = .*/FFVERSION = $LATEST_FFVERSION/}" ../../debian/rules
         echo "Updated FFVERSION in ../debian/rules"
     else
         echo "Did not update FFVERSION."
