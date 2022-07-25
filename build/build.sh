@@ -98,11 +98,6 @@ create_includes() {
     echo "${SRC_PATH}/KEY" >> ../debian/source/include-binaries
 }
 
-#reproduce() {
-    # find extras/ -mindepth 1 -name "*.zip" -exec echo {} \;
-    # TODO: Use filenames to redownload archives to verify.
-#}
-
 build_deb() {
     rm ./*.build ./*.buildinfo ./*.changes ./*.deb ./*.dsc ./*.debian.tar.xz || true
     rm -r icecat-${FFVERSION} || true
@@ -136,18 +131,6 @@ build_deb() {
     fi
 }
 
-#patch() {
-    # TODO: Complete this function
-    # See https://www.debian.org/doc/manuals/maint-guide/modify.en.html
-    # alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
-    # complete -F _quilt_completion -o filenames dquilt
-    # dquilt new test-patch.patch
-    # dquilt add makeicecat
-    # patch -p1 < ../debian/patches/offline-sources.patch
-    # dquilt refresh
-    # dquilt header -e
-#}
-
 if [[ "$1" == "build_deb" ]]; then
     check_depends dpkg-source
     check_depends debuild
@@ -171,8 +154,6 @@ elif [[ "$1" == "create_service" ]]; then
     create_service
 elif [[ "$1" == "create_includes" ]]; then
     create_includes
-elif [[ "$1" == "reproduce" ]]; then
-    reproduce
 else
     usage
 fi
