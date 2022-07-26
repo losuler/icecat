@@ -177,7 +177,7 @@ update_package() {
 
     CHANGELOG_DATE=$(date -u +"%a, %d %b %Y %H:%M:%S %z")
 
-    cat >> ../debian/changelog<< EOF
+    cat >> changelog-head<< EOF
 icecat ($LATEST_FFVERSION-1) unstable; urgency=medium
 
   * debian/rules: Update to $LATEST_FFVERSION.
@@ -185,6 +185,11 @@ icecat ($LATEST_FFVERSION-1) unstable; urgency=medium
  -- losuler <losuler@posteo.net>  $CHANGELOG_DATE
 
 EOF
+
+    cp ../debian/changelog changelog-tail
+    cat changelog-head changelog-tail > ../debian/changelog
+    rm changelog-head changelog-tail
+
     echo "Added changelog entry to ../debian/changelog"
 }
 
