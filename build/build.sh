@@ -191,6 +191,15 @@ EOF
     rm changelog-head changelog-tail
 
     echo "Added changelog entry to ../debian/changelog"
+
+    INCLUDES=$(grep -oPm 1 '(?<=output/icecat-)\K.*(?=\/)' ../debian/source/include-binaries)
+
+    if [[ "$LATEST_FFVERSION" != "$INCLUDES" ]]; then
+        create_includes
+        echo "Updated ../debian/source/include-binaries"
+    else
+        echo "Did not update ../debian/source/include-binaries"
+    fi
 }
 
 if [[ "$1" == "build_deb" ]]; then
