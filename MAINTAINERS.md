@@ -54,6 +54,7 @@ If you have the `obs-service-download_url` package installed, you will need to r
 cd build
 ./build.sh create_includes
 ./build.sh create_service
+./build.sh download
 ./build.sh build_source
 ```
 
