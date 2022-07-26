@@ -28,6 +28,12 @@ cd debian
 dch -i
 ```
 
+3. Update includes-binaries file (if using OBS).
+
+```bash
+./build.sh create_includes
+```
+
 ## Build package locally
 
 When building locally on Debian, you'll need to manually install the build dependencies (OBS handles this for you).
@@ -52,7 +58,6 @@ If you have the `obs-service-download_url` package installed, you will need to r
 
 ```bash
 cd build
-./build.sh create_includes
 ./build.sh create_service
 ./build.sh download
 ./build.sh build_source
