@@ -59,7 +59,6 @@ If you have the `obs-service-download_url` package installed, you will need to r
 ```bash
 cd build
 ./build.sh create_service
-./build.sh download
 ./build.sh build_source
 ```
 
