@@ -14,25 +14,12 @@ osc
 
 ## Update package
 
-1. Update `ICECATCOMMIT` from https://git.savannah.gnu.org/cgit/gnuzilla.git and `FFVERSION` which refers to the Firefox ESR release version number.
+1. Update version strings, add changelog entry and update includes-binaries file (only needed for OBS).
 
 ```bash
-vim build/build.sh
-vim debian/rules
+./build.sh update_package
 ```
 
-2. Increment debian changelog entry.
-
-```bash
-cd debian
-dch -i
-```
-
-3. Update includes-binaries file (if using OBS).
-
-```bash
-./build.sh create_includes
-```
 
 ## Build package locally
 
