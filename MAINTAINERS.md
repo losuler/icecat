@@ -17,6 +17,7 @@ osc
 1. Update version strings, add changelog entry and update includes-binaries file (only needed for OBS).
 
 ```bash
+cd build
 ./build.sh update_package
 ```
 
