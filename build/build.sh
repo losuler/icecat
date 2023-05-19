@@ -4,8 +4,8 @@ set -o errexit
 set -o errtrace
 set -o pipefail
 
-ICECATCOMMIT="15c6c2229a053cdcc064eda89cee07f18efac35d"
-FFVERSION="102.10.0"
+ICECATCOMMIT="5a1894fc966840dc242110ec0459471c637a4675"
+FFVERSION="102.11.0"
 CLVERSION="RELEASE_8_1_0"
 
 MOZ_FTP="ftp.mozilla.org/pub/firefox/releases"
