@@ -38,6 +38,18 @@ endif
 	cp data/buildscripts/mozconfig-common output/icecat-$(FFVERSION)/.mozconfig
 	cat data/buildscripts/mozconfig-gnulinux >> output/icecat-$(FFVERSION)/.mozconfig
 	echo "ac_add_options --prefix=/usr" >> output/icecat-$(FFVERSION)/.mozconfig
+ifeq (ppc64el,$(DEB_BUILD_ARCH))
+	# TODO: Look into why this doesn't exist for ppc64el
+	sed -i '/--disable-eme/d' output/icecat-$(FFVERSION)/.mozconfig
+	# Work-around-bz-1775202-to-fix-FTBFS-on-ppc64el.patch
+	# Add-missing-webrtc-directory-for-ppc64el-bz-1775202.patch
+	sed -i -e '523c\
+\t"/third_party/libwebrtc/modules/audio_coding/isac_gn",\
+\t"/third_party/libwebrtc/modules/desktop_capture/desktop_capture_generic_gn",\
+\t"/third_party/libwebrtc/modules/desktop_capture/desktop_capture_gn",\
+\t"/third_party/libwebrtc/modules/desktop_capture/primitives_gn"' \
+	output/icecat-$(FFVERSION)/third_party/libwebrtc/moz.build
+endif
 	sed -i 's/cargo_min_version = rustc_min_version/cargo_min_version = Version("1.46.0")/' \
 		output/icecat-$(FFVERSION)/build/moz.configure/rust.configure
 

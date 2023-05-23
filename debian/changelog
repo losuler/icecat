@@ -1,3 +1,9 @@
+icecat (102.11.0-2) unstable; urgency=medium
+
+  * debian/rules: Fix ppc64el builds.
+
+ -- losuler <losuler@posteo.net>  Tue, 23 May 2023 02:20:14 +0000
+
 icecat (102.11.0-1) unstable; urgency=medium
 
   * debian/rules: Update to 102.11.0.
