@@ -1,3 +1,9 @@
+icecat (102.11.0-4) unstable; urgency=medium
+
+  * debian/rules: Fix filter logic.
+
+ -- losuler <losuler@posteo.net>  Sat, 27 May 2023 08:03:03 +0000
+
 icecat (102.11.0-3) unstable; urgency=medium
 
   * debian/rules: Fix aarch64 builds.

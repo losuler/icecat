@@ -38,7 +38,7 @@ endif
 	cp data/buildscripts/mozconfig-common output/icecat-$(FFVERSION)/.mozconfig
 	cat data/buildscripts/mozconfig-gnulinux >> output/icecat-$(FFVERSION)/.mozconfig
 	echo "ac_add_options --prefix=/usr" >> output/icecat-$(FFVERSION)/.mozconfig
-ifeq (,$(filter ppc64el aarch64,$(DEB_HOST_ARCH)))
+ifneq (,$(filter $(DEB_HOST_ARCH),ppc64el aarch64))
 	# TODO: Look into why this doesn't exist for ppc64el/arm64
 	sed -i '/--disable-eme/d' output/icecat-$(FFVERSION)/.mozconfig
 endif
