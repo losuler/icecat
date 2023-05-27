@@ -1,3 +1,9 @@
+icecat (102.11.0-3) unstable; urgency=medium
+
+  * debian/rules: Fix aarch64 builds.
+
+ -- losuler <losuler@posteo.net>  Sat, 27 May 2023 07:00:36 +0000
+
 icecat (102.11.0-2) unstable; urgency=medium
 
   * debian/rules: Fix ppc64el builds.
