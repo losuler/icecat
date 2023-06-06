@@ -1,3 +1,9 @@
+icecat (102.12.0-1) unstable; urgency=medium
+
+  * debian/rules: Update to 102.12.0.
+
+ -- losuler <losuler@posteo.net>  Tue, 06 Jun 2023 02:35:19 +0000
+
 icecat (102.11.0-5) unstable; urgency=medium
 
   * debian/rules: Fix DEB_HOST_ARCH for aarch64 is arm64.
