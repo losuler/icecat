@@ -6,3 +6,4 @@
 - [ ] Add all build dependencies from https://salsa.debian.org/mozilla-team/firefox/-/blob/esr78/master/debian/control
 - [x] Test build override with mach as per https://git.savannah.gnu.org/cgit/gnuzilla.git/tree/data/buildscripts/build-gnulinux.sh
 - [ ] Cleanup `build/_service:download_url:*` files.
+- [ ] Add `build/build.sh update_package` to GitHub workflow.
