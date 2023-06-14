@@ -1,0 +1,42 @@
+name: Check for updates
+
+on:
+  schedule:
+    # https://crontab.guru/every-day-8am
+    - cron: 0 8 * * *
+  workflow_dispatch:
+    branches:
+      - add-new-release
+
+jobs:
+  pull-request:
+    # https://github.com/actions/virtual-environments
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run update check
+        run: echo "version=$(bash check-updates.sh --version-only)" >> $GITHUB_ENV
+
+      - name: Create new branch
+        run: git branch add-new-release
+
+      - name: Update version number
+        run: |
+          sed -i "s/PREV_RELEASE=.*/PREV_RELEASE=\"$(echo '${{env.version}}' | \
+              awk '{print $1}')\"/" \
+              check-updates.sh
+
+      - name: Open pull request
+        # https://docs.github.com/en/actions/learn-github-actions/expressions
+        if: contains(env.version, '>')
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "feat: update release version"
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          branch: add-new-release
+          base: master
+          title: "Add new release"
+          body: "A new release of GNU IceCat has been detected."
