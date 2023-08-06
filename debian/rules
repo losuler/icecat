@@ -34,6 +34,8 @@ endif
 ifeq ("$(wildcard $(../SOURCES/$(CLVERSION).zip))","")
 	cp ../SOURCES/$(CLVERSION).zip output/compare-locales-$(CLVERSION).zip
 endif
+	# https://aur.archlinux.org/cgit/aur.git/commit/?h=icecat&id=19c0c6c810d1db9179fde5d9dbaed97ccc1739da
+	sed -e 's;find l10n -wholename '\''\*/brand.dtd'\'' | xargs;find l10n -wholename '\''\*/brand.dtd'\'' | xargs -r;g' -i makeicecat
 	./makeicecat
 	cp data/buildscripts/mozconfig-common output/icecat-$(FFVERSION)/.mozconfig
 	cat data/buildscripts/mozconfig-gnulinux >> output/icecat-$(FFVERSION)/.mozconfig
