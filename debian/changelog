@@ -1,3 +1,10 @@
+icecat (102.14.0-1) unstable; urgency=medium
+
+  * debian/rules: Update to 102.14.0.
+  * debian/rules: Add fix from AUR build (thanks cysp74)
+
+ -- losuler <losuler@posteo.net>  Sun, 06 Aug 2023 04:50:04 +0000
+
 icecat (102.12.0-1) unstable; urgency=medium
 
   * debian/rules: Update to 102.12.0.
