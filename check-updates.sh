@@ -6,7 +6,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-PREV_RELEASE="102.14.0"
+PREV_RELEASE="115.9.0"
 
 LATEST_RELEASE=$(curl --silent https://git.savannah.gnu.org/cgit/gnuzilla.git/log | \
     grep -oP '(?<=Update to )[0-9.]+' | \
